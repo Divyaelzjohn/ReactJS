@@ -19,15 +19,44 @@ create-react-app<project_name>
 /* COmponet Type
 1.Stateless Functional Component 
  - JavaScript Functions->
- Ex...function Welcome(props){return <h1>Hello, {props.name}</h1>}
-2.Stateful CLass Component
+ Ex...//  Greeting.js
+    function Greeting(props) {
+      return <h2>Hello, {props.name}!</h2>;
+    }
+    export default Greeting;
+
+    <Greeting name="Divya"/>                         //Hello, Divya!
+    <Greeting name="John"/>                         //Hello, John!
+
+ Ex...// Button.js
+        function Button() {
+          return <button>Click Me</button>;
+        }
+      // App.js
+      import Button from "./Button";
+
+      function App() {
+        return (
+          <div>
+            <h1>Hello React</h1>
+            <Button /> { using the component }
+            </div>
+          );
+        }
+        
+  export default App;
+2.Stateful Class Component
  -Class extending Component class
  -Render method returning HTML
- Ex... class Welcome extends React.Component{
-  render(){
-    return <h1>Hello, {this.props.name}</h1>;
-    }
-  }
+  Ex...import React, { Component } from "react";
+      class Welcome extends Component {
+        render() {
+          return <h1>Welcome {this.props.name}</h1>;
+        }
+      }
+      export default Welcome;
+
+    <Welcome name="Divya"/>
 */
 
 /* Components describe a part of the user interface
@@ -35,6 +64,20 @@ They are re-usable and can be nested inside other componets */
 
 
 // Functional Componets
+// Props(passing Data to Components)-> used to send data from parent to child
+// state(Component's own Data) ->State is data inside a component that can change.
+/* import { useState } from "react";
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return (
+      <div>
+        <p>Count: {count}</p>
+        <button onClick={() => setCount(count + 1)}>Increase</button>
+      </div>
+    );
+  }
+  export default Counter;
+ */
 /* Properties(props)---->Javascript Function ---->HTML(JSX)
 - simple functions
 - Use Functional componets as much as possible
@@ -44,7 +87,31 @@ They are re-usable and can be nested inside other componets */
 - Stateless / Dumb/ Presentational
 */
 
-// Class
+/* {
+
+Props->Communication between components
+-Props let us passs data from parent -> child. , 
+- Example -A ProductCard needs product name,price , image ->thses come from props. 
+-Without props , all componets would be empty shells
+
+State->Components own memmory
+-State stores data that changes inside a component.
+-ex.-A counter needs to remember the current count.
+    -A cart needs to remember which items you added
+-without state components would never update.
+
+Hooks->lifecycle & Side effects 
+-lets componets react when something happends.
+-Ex..Fetching data when a page loads, setting a timer , or listening to a window resize.
+
+Context/Redux -> Global state
+-Props and state are for small apps.
+-for big apps(like Amazone) we need global state(share data)
+
+} */
+
+// Class -> A class component is a React component written using ES6 classs syntax
+/* import React,{Component} from "react";class ComponetName extends Component{render(){return(<div> <h1>Hello, I am a Class Component</h1></div>)}} Export default ComponentName;*/
 /*
 - More feature rich
 - Maintain their own private data -state
@@ -55,7 +122,16 @@ They are re-usable and can be nested inside other componets */
 
 /* Intoducing Hooks -> Hooks are new feature proposal that lets you use state and other React features without writing a class. The're currently in React v16.7.0-alpha and being dicussed in an open RFC */
 
-/* Hooks 
+/* Hooks ->Hooks are special function in react that you use state and other React features without writing class components. WHen we say update , we usally mean updating state or runnning side effects using hooks
+
+// Common React Hooks for Updates
+
+1.UseState-> update state ->Allows you to add state in a functional component. Updatting re-rendering the component
+2.useEffect -> Run code on updates -> Runs after render and can be used for fetching data, updating DOM , timers, etc. 
+can run on mount, state change, or unmount.
+3.useReducer->Complex Updates 
+Alternative to useSTate for more complex state logic
+
  - No breaking changes.
  - Completely opt-in & 100% backwards-compatible.
  - What ever we've learned so far in this series still holds good.
@@ -101,15 +177,45 @@ They are re-usable and can be nested inside other componets */
 */
 
 
-// SetState
+// SetState ->setState is a method usedin class components toupdate the state of a component. When state changes, React will re-render the component with the new values
 /* 
 - Always make use of setState and never modify the state directly.
+this.state.count=this.state.count+1;  -> this.setState({count:this.state.count+1})
 - Code has to be executed after the state has been updated? Place that code in the call back function which is the second argument to the setState method.
 - When you have to update state based on the previous state value, pass in a function as an arguments instead of the regular object.
 */
 
-// Destructuring
-// Event handler 
+// Destructuring ->1.functional parameter it self, 
+/*const Greet=({name,heroName})=>{
+  console.log(props)
+  return(
+    <div>
+      <h1>
+        Hello {name} a.k.a {heroName}
+      </h1>
+    </div>
+  )
+}
+export default Greet*/
+// 2.Destructuring function body
+/*const Greet=props=>{
+  const {name,heroName}=props
+  return(
+    <div>
+      <h1>
+        Hello {name} a.k.a {heroName}
+      </h1>
+    </div>
+  )
+}
+export default Greet*/
+
+/* Event handler -just like js (onclick,onchange) React also handles events - but with some diffrence  
+1.React events are written in camelCase-> onclick,on change ,etc.
+2.You pass a function instead of string.
+3.React uses a system called Synthetic Events( a wrapper around native events for cross-browser compatibility ).
+*/
+
 // How to bind event handler -> binding render, arrow function,class constructor, class property with arrow function
 
-// Parent component
+// Parent component -> 16  
