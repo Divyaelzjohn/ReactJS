@@ -9,6 +9,7 @@ import Timer from './components/CounterApp';
 import Counter1 from './components/CounterApp';
 
 import Apps from './components/clickEvent';
+import TodoApp from './components/clickEvent';
 
 function App() {
   return (
@@ -27,7 +28,11 @@ function App() {
 
       {/* <Timer /> */}
 
-      <Apps/>
+      {/* <Apps/> */}
+
+      {/* <TodoApp/> */}
+
+      <Greeting/>
     </div>
   );
 }

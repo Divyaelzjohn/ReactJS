@@ -70,7 +70,7 @@ class Apps extends Component {
 export default Apps;*/
 
 
-import React, { useState } from "react";
+/*import React, { useState } from "react";
 
 function Apps() {
   const [name, setName] = useState("");
@@ -91,4 +91,58 @@ function Apps() {
     </form>
   );
 }
-export default Apps;
+export default Apps;*/
+
+
+import React, { useState } from "react";
+
+function TodoApp() {
+  const [task, setTask] = useState(""); // input value
+  const [tasks, setTasks] = useState([]); // list of tasks
+
+  // Handle input change (event object e)
+  const handleChange = (e) => {
+    setTask(e.target.value);
+  };
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault(); // stop page reload
+    if (task.trim() !== "") {
+      setTasks([...tasks, task]); // add new task
+      setTask(""); // clear input
+    }
+  };
+
+  // Handle delete
+  const handleDelete = (index) => {
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Todo App</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter a task"
+          value={task}
+          onChange={handleChange} // event handling
+        />
+        <button type="submit">Add</button>
+      </form>
+
+      <ul>
+        {tasks.map((t, index) => (
+          <li key={index}>
+            {t}
+            <button onClick={() => handleDelete(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default TodoApp;

@@ -216,6 +216,6 @@ export default Greet*/
 3.React uses a system called Synthetic Events( a wrapper around native events for cross-browser compatibility ).
 */
 
-// How to bind event handler -> binding render, arrow function,class constructor, class property with arrow function
+// How to bind event handler -> binding render, arrow function,class constructor, class property with arrow function . In React , event binding means connecting an event (like click, change, submit, etc) to a function(event handler) so that something happends when the used interact with the UI
 
-// Parent component -> 16  
+// Parent component -> 16 
