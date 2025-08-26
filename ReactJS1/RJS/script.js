@@ -392,4 +392,28 @@ function ProductApp() {
 }*/
 
 /* A key is a special string attribute you need to include when creating lists of elements . Keys give the elements a stable identity.
-Keys help react identity which items have changed , are added , or are removed.Help in efficient update of the user interface.*/
+Keys help react identity which items have changed , are added , or are removed.Help in efficient update of the user interface.
+Keys in react - keys help React identify which items have changed , are added , or removed
+                They make list rendering efficient by reducing unnecessary re-renders. 
+                Key shuld be unique and stable
+*/
+
+
+
+// Index as key
+/* 
+1.The items in yourlist do not have a unique id
+2.The list is a static list and will not change
+3.The list will never be recorded or filtered
+*/
+
+
+
+
+// Styling React Components
+/* 
+1.CSS stylesheets
+2.inline styling->Property names are written in camelCase(eg.backgroundColor instead of background-color).Values are usually  strings.
+3.Css Modules  -> Create a file with the name format:ComponentName.module.css, improt it as an object, Use styles with className={styles.className}
+4.CSS in JS Libaries
+*/
