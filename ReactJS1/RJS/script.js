@@ -219,3 +219,177 @@ export default Greet*/
 // How to bind event handler -> binding render, arrow function,class constructor, class property with arrow function . In React , event binding means connecting an event (like click, change, submit, etc) to a function(event handler) so that something happends when the used interact with the UI
 
 // Parent component -> 16 
+
+
+
+// conditional rendering ->Showing diffrent UI based on some condition(like if/else in javascript , but for JSX)
+
+/* Ways to do conditional rendering */
+/* 1.if/else
+   2.Element variable
+   3.Ternary conditional operator
+   4.SHort circuit operator */
+// 1. Using if/else
+
+/*function Greeting({isLoggedIn}){
+  if(isLoggedIn){
+    return <h2>Welcome back!</h2>
+  }else{
+    return <h2>Please log in.</h2>
+  }
+}*/
+
+// 2.Using Tenrnary Operator(?:) - best for inline condition
+/*function Greeting({ isLoggedIn }) {
+  return (
+    <h2>{isLoggedIn ? "Welcome back!" : "Please log in."}</h2>
+  );
+}*/
+
+// 3.Uisng Logical AND(&&)->If you want to render something when the condition is true
+/*function Notification({ hasMessages }) {
+  return (
+    <div>
+      <h2>Dashboard</h2>
+      {hasMessages && <p>You have new messages!</p>}
+    </div>
+  );
+}*/
+
+// 4.Using Switch Statement->Good when you have multiple cases.
+/*function Status({ status }) {
+  switch (status) {
+    case "loading":
+      return <p>Loading...</p>;
+    case "success":
+      return <p>Data loaded</p>;
+    case "error":
+      return <p>Error loading data</p>;
+    default:
+      return <p>Unknown status</p>;
+  }
+}*/
+
+// Example
+/*import { useState } from "react";
+
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  return (
+    <div>
+      <h1>Conditional Rendering Example</h1>
+      {loggedIn ? (
+        <p>Welcome back, User! </p>
+      ) : (
+        <p>Please log in to continue.</p>
+      )}
+      <button onClick={() => setLoggedIn(!loggedIn)}>
+        {loggedIn ? "Logout" : "Login"}
+      </button>
+    </div>
+  );
+}
+export default App;*/
+
+
+
+
+
+// List Rendering? -> List rendering means displaying multiple elements from an array dynamically  in JSX using .map(). Instead of writing many <li> manuually , we loop through data and render automatically.
+
+/*function FruitsList() {
+  const fruits = ["Apple", "Banana", "Orange", "Mango"];
+  return (
+    <ul>
+      {fruits.map((fruit, index) => (
+        <li key={index}>{fruit}</li>
+      ))}
+    </ul>
+  );
+}
+*/
+
+// Rendering Objects
+/*function Products() {
+  const products = [
+    { id: 1, name: "Shoes", price: 2000 },
+    { id: 2, name: "Watch", price: 1500 },
+    { id: 3, name: "Bag", price: 1000 }
+  ];
+  return (
+    <div>
+      <h2>Products</h2>
+      <ul>
+        {products.map(product => (
+          <li key={product.id}>
+            {product.name} - ₹{product.price}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}*/
+
+// With COmponents
+/*function ProductCard({ product }) {
+  return (
+    <div style={{border: "1px solid gray", margin: "5px", padding: "10px"}}>
+      <h3>{product.name}</h3>
+      <p>Price: ₹{product.price}</p>
+    </div>
+  );
+}
+function ProductApp() {
+  const products = [
+    { id: 1, name: "Shoes", price: 2000 },
+    { id: 2, name: "Watch", price: 1500 },
+    { id: 3, name: "Bag", price: 1000 }
+  ];
+  return (
+    <div>
+      <h2>Product List</h2>
+      {products.map(item => (
+        <ProductCard key={item.id} product={item} />
+      ))}
+    </div>
+  );
+}
+*/
+// creates a new array with the result of calling a provided function on every element in the calling array
+
+
+// Listes and Keys -> In react , lists are usually rendered using javascript map() function. It allows you to create UI elements from an array
+
+/*function FruitsList() {
+  const fruits = ["Apple", "Banana", "Orange"];
+  return (
+    <ul>
+      {fruits.map((fruit, index) => (
+        <li key={index}>{fruit}</li>
+      ))}
+    </ul>
+  );
+}
+*/
+
+// Keys in React -> A key is a special string attribute you must include when creating lists. Key help React Identify which items changed, added, or removed. Without keys, React will re-render inefficiently.
+
+/*function Products() {
+  const products = [
+    { id: 1, name: "Shoes", price: 2000 },
+    { id: 2, name: "Watch", price: 1500 },
+    { id: 3, name: "Bag", price: 1000 }
+  ];
+  return (
+    <div>
+      {products.map(product => (
+        <div key={product.id}>
+          {product.name} - ₹{product.price}
+        </div>
+      ))}
+    </div>
+  );
+}*/
+
+/* A key is a special string attribute you need to include when creating lists of elements . Keys give the elements a stable identity.
+Keys help react identity which items have changed , are added , or are removed.Help in efficient update of the user interface.*/
