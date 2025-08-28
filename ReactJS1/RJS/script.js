@@ -412,8 +412,262 @@ Keys in react - keys help React identify which items have changed , are added , 
 
 // Styling React Components
 /* 
-1.CSS stylesheets
-2.inline styling->Property names are written in camelCase(eg.backgroundColor instead of background-color).Values are usually  strings.
-3.Css Modules  -> Create a file with the name format:ComponentName.module.css, improt it as an object, Use styles with className={styles.className}
+1.CSS stylesheets ->creat a CSS file, wrire inside it. import it into your React  component.
+2.inline styling->Here, you use a style attribute directly in JSX, But instead og normal CSS, you use Javascript objects. Property names are written in camelCase(eg.backgroundColor instead of background-color).Values are usually strings.
+3.Css Modules  -> CSSModules help you write CSS that is scoped only to one component(no global conflicts).
+  1.create a file with the name format:ComponentName.module.css, 2 import it as an object.Use styles with className={styles.className}
+  import styles from "./Button.module.css";function Button(){return <button className={styles.btn}>Click Me,/button>} export default Button;
 4.CSS in JS Libaries
 */
+
+
+
+// basics of from handling- form elements , Controlled component 
+/*
+this.state={email:''}
+this.changeEmailHandller=(event)=>{this.setState({email:event.target.value})}
+ <input type='text> value={this.state.email}  onChange={this.changeEmailHandler} />
+ */
+/*
+1.Form elements in react ->
+-<input/> -> text, password, number
+-<textarea /> ->multi-line text
+-<select /> ->dropdown
+<button /> ->submit
+
+2.Controlles componet-> A controlled components is a form element whose value is controlled by React state.
+-whatever is in state ->shows up in the box
+-Whatever user types -> updates the state using onChange.
+
+state is the real data, input box is just the mirror, when you type ->  the reflection changes -> but React updates the real data first(state), then shows it in the mirror(input).
+*/
+
+
+//  LifeCycle method
+/* life cycle methods in class components 
+1.Mounting ->When an instance of a componet is being created and inserted into the DOM
+-constructor, 
+-static getDerivedStateFrmProps, 
+-render and 
+-componentDidMount
+2.Updating ->When an instance of a component is being re-rendered as a result of changes to either its props or state
+-static getDerivedStateFromProps,
+-shouldComponentUpdate,
+-render,
+-getSnapshootBeforeUpdate and
+-componentDisUpdate
+3.Unmounting ->When a component is being removed from the DOM
+-componentWillUnmount
+4.Error handling ->When there is an error during rendering, in a lifecylcle , in a lifecycle method, or in the constructor of any child component  
+-static getDerivedStateFromError and 
+-componentDisCatch
+*/
+
+
+// Mounting (Birth stage)->Happens when the component is created & inserted into the DOM
+/*
+1.constructor() -> Initialize state, bind methods.
+2.static getDerivedStateFrmProps() -> Update state from props before rendering.
+3.render ->Returns JSX(UI).
+4.componentDidMount()->Runs after first render(good for API calls)
+*/
+
+// Updating ->Happens when props or state changes -> component re-renders.
+/*
+1.static getDerivedStateFromProps
+2.shouldComponentUpdate,
+3.render,
+4.getSnapshootBeforeUpdate and
+5.componentDisUpdate
+*/
+
+// 3.Unmounting ->Happens when  component romove from DOM.
+/*
+-componentWillUnmount ->Clanup(remove timer ,cancels API calls ,unsubsscribe listener).
+*/
+
+
+// 4.Error Handling -> when there's an error during rendering, lifrcycle , or constructor of child component
+/*
+1.static getDerivedStateFromError ->Updates state to show fallback UI.
+2.componentDisCatch -> Log error details
+*/
+
+
+// Fragments -> In react , every componet's render() or return statements must retuen a single parent element. But sometimes, you don't want an extra <div> wrapper in your HTML. Fragments let you group elements without adding extra DOM nodes.
+// why we use fragments? -> Avoid unecessary <div> s, useful when rendering lists in tables , grid , etc
+
+// Pure components -> A pure component on the other hand implements shouldComponentUpdate with a shallow props and state comparison.
+// what is a pure components? A pure component in react is just like a class component but  with one important feature: It prevents unnecessary re-renders by doing a shallow comparison of props and state. If props or state don't change , the component won't re-render.[Pure components  doesn't check the array- only the reference. So if if you mutate arrays/objects directly, React thinks "It's the same" -> no re-render. That's why we never mutatae state, always create a new copy.]
+
+// Regular Component ->Always redraws the whole notebook, even if the text did't change.
+// Pure Component->only redraws when the text actually changed 
+
+/* Imagin you're a teacher checking homework:
+Normal Componet->You re-check all note books every day even if nothing changed.
+Pure Component -> You only check a notebook if the student actually updated something
+
+
+Where do we use pure components?
+1.Performance optimization -> Prevents wasting time re-rendering UI innecessarily
+                  -> In large apps with many compnents , it avoids re-rendering unchanged parts
+                  -> Example:In an e-commerce site the product card won't re-render if its price & name did't change.
+2.Reusable UI - When props rrely change(e.g.,profile info, product details).
+                  -> When you have componets that rarely change.
+                  Example: User Profile Info(name,email,photo)
+3.Large apps - Helps improve speed in complex UIs eith many components.
+                Optimizes rendering when scrolling through big data (e.g., chat messages, product catalogs)
+*/
+
+// Regular Component ->A regular component does not implement the shouldComponentUpdate method. It always returns true by default.
+
+
+// Shallow comparison(SC)-> shallow comparison means React only checks if two values are values are the same at the top level. [React checks only the first /top level val;ues , not the deep nested ones.]
+/* Shallow comparison means React only checks if two valuesa are the same at the top level
+// Primitive values(string, number, boolean)
+"Divya"==="Divya"
+10===10
+
+// Objects(reference comparison)
+{name:"Divya"}==={name:"Divya"}
+if both objects look the same , React says they are diffrent, because they are stored in diffrent memmory locations.
+
+class PureComp extends React.PureComponent {
+  render() {
+    console.log("PureComp rendered");
+    return <h2>{this.props.user.name}</h2>;
+  }
+}
+class Parent extends React.Component {
+  state = { user: { name: "Divya" } };
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ user: { name: "Divya" } }); 
+      // looks same, but new object every time 
+    }, 2000);
+  }
+  render() {
+    return <PureComp user={this.state.user} />;
+  }
+}
+
+
+3.Works Only in class Components
+-React.PureComponent is available only in class-based componets. For function components, we use React.memo().
+
+4.Functional Components with React.memo() -> React.memo() is the function world's PureComponent.
+import React from "react";
+
+const User = React.memo(function User({ name }) {
+  console.log("User Component rendered");
+  return <h2>{name}</h2>;
+});
+
+export default function App() {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increase</button>
+      <User name="Divya" />
+    </div>
+  );
+}
+*/
+/* Analogy for Objects/Arrays
+Think of shallow comparison like checking two gift boxes by just looking at the box, not opening it:
+-if the box is the same box(same reference), you say same.
+-if you create a new box(even with the same gify inside),React says x different. 
+*/
+
+/* 
+Primitive Types-> a (SC) b returns true if a and b have the same value and are of the same type
+Ex: string 'Vishwas' (SC) string 'Vishwas' returns true
+
+Complex Types-> a (SC) b returns true if a and b reference the exact same object.
+var a=[1,2,3];
+var b=[1,2,3];
+var c=a;
+var ab_eq=(a===b);     // false
+var ac_eq=(a===c);     // true
+*/
+
+/* Pure Component -> A pure component implements shouldComponentUpdate with a shallow prop and state comparison
+SC of prevState with currentState-----|
+SC of prevProps with currentProps----- Re-render component
+*/
+
+/*
+-we can create a component by extending the PureComponent class.
+- A pureComponent implements the shouldComponentsUpdate lifecycle method by performing a shallow comarison on the propes and state of the component.
+- If there is no difference , the component is not re-rendered - performance boost.
+-It is a good idea to ensure that all the children components are also pure to avoid unexpected behaviour.
+- Never mutate the state. Always return a new object that reflects the new state.
+*/
+
+// React memo()? -> React.memo() is the functional component version of PureComponent. It prevents a component from re-rendering if props did't change.
+/* Analogy -> Think of memoization(remember results) -> 
+-You ask your friend the same question every day:"What is 2+2"
+-Normal friend (Normal Component) -> always answer again and again.
+-Smart friend(React.memo)-> remembers last answer:"I already told you it's 4!"
+*/
+
+
+// What are Refs? Ref=reference. In React,refs giv you a way to directly access and interact with DOM elements or React elements created in the method
+
+/*
+Why do we need Refs? Normally in React, you don't directly touch the DOM (you let React handle it).But in some cases, you need direct access:
+1.Focusing input fields(like autofocus).
+2.Playing / pausing a video or audio.
+3.Reading values from uncontrolled components.
+4.Integrating with third-party libraries(like chart.js,d3.js).
+
+How to Create and use a Ref
+In functional components -> use useRef()
+In class components -> use React.createRef().
+
+-Key points
+ref.current gives the DOM node( or React element).
+Dont overuse refs - use state for most things.
+Use refs for imperative action(focus , scroll, play , measure size)
+
+
+Analogy:
+Imagin React components as school classrooms. Normally, you communicates through the teacher(React state/props).But sometimes you directly want to tap a student's shoulder(DOM element).Tha's what a ref does
+*/
+
+/* 
+What is a Ref -> Ref(Reference) , In REact, we normally don't touch the real DOM direactly.  Example: we don;t usually do document.getELementById("myInput")
+But Sometimes, we need direct access to an elements or a child components(example:focus an input scro;; a div, play a video)
+For that, React gives us Refs. Think of it like a remote control: 
+-React creates the TV(DOM element).-Ref is the remote to control to control that TV directly.
+How it Work
+1.]Create a ref-> using React.createRef() (class) or useRef()(function).
+    Create a ref in constructor.
+    Attach ref to the element
+    Access element using .current.
+2.Attach it to a React element using ref={...}.
+3.Use it-> The actual DOM node(or components instance) will be available at .current.
+
+
+2.]callback Ref
+1.Create a property -> initially null
+2.Write a callback function -> saves DOM element in that property.
+3.Attach that callback to ref attribute.
+4.Access it anywhere.
+*/
+
+// Ref class component
+
+
+
+// Forwarding Refs
+/* 
+Create a ref in parent component
+Attach the ref to child component using ref attribute
+*/
+
+
+// Portals
+
+// Error Handling Phase Methods -> 
