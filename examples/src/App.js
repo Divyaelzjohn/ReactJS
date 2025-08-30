@@ -1,52 +1,63 @@
 
-// import CounterApp from './components/CounterApp';
-// import Greeting from './components/Greeting';
-// import ProductApp from './projects/ProductApp';
-// import React from 'react';
-// import User from './components/exclass';
-// import Counter from './components/classState';
-// import Timer from './components/CounterApp';
-// import Counter1 from './components/CounterApp';
+import CounterApp from './components/CounterApp';
+import Greeting from './components/Greeting';
+import ProductApp from './projects/ProductApp';
+import React from 'react';
+import User from './components/exclass';
+import Counter from './components/classState';
+import Timer from './components/CounterApp';
+import Counter1 from './components/CounterApp';
 
-// import Apps from './components/clickEvent';
-// import TodoApp from './components/clickEvent';
-// import Appss from './components/login';
-// import Lifecycle from './components/Lifecycle';
-// import ParentComp from './components/ParentComp';
+import Apps from './components/clickEvent';
+import TodoApp from './components/clickEvent';
+import Appss from './components/login';
+import Lifecycle from './components/Lifecycle';
+import ParentComp from './components/ParentComp';
+import FocusInput from './components/Ref/FocusInput';
+import FRInput from './components/Ref/FRInput';
+import FRParentInput from './components/Ref/FRParentInput';
+import Portal from './components/portal/Portal';
 
-// function App() {
-//   return (
-//     <div>
+function App() {
+  return (
+    <div>
+      {/* <ForwardRef /> */}
 
-//       <ParentComp/>
-//       {/* <Lifecycle/> */}
+      {/* <FocusInput/> */}
+
+      {/* <ParentComp/> */}
+      {/* <Lifecycle/> */}
       
-//       {/* <Greeting name="Divya"/>              // Props
-//       <Greeting name="John" />
-//       <Greeting name="Alice" /> */}
+      {/* <Greeting name="Divya"/>              // Props
+      <Greeting name="John" />
+      <Greeting name="Alice" /> */}
 
-//       {/* <CounterApp/> */}
+      {/* <CounterApp/> */}
 
-//       {/* <ProductApp/> */}
+      {/* <ProductApp/> */}
 
-//       {/* <User name="Divya"/> */}
+      {/* <User name="Divya"/> */}
 
-//       {/* <Counter1/> */}
+      {/* <Counter1/> */}
 
-//       {/* <Timer /> */}
+      {/* <Timer /> */}
 
-//       {/* <Apps/> */}
+      {/* <Apps/> */}
 
-//       {/* <TodoApp/> */}
+      {/* <TodoApp/> */}
 
-//       {/* <Greeting/> */}
+      {/* <Greeting/> */}
 
-//       {/* <Appss/> */}
+      {/* <Appss/> */}
 
-//     </div>
-//   );
-// }
-// export default App;
+      {/* <FRInput/> */}
+      {/* <FRParentInput/> */}
+      <Portal/>
+
+    </div>
+  );
+}
+export default App;
 
 
 
@@ -112,29 +123,4 @@ function App(){
 }
 
 export default App;*/
-
-
-
-import React, { Component } from "react";
-class InputFocus extends Component {
-  constructor(props) {
-    super(props);
-    // Step 1: Create ref
-    this.inputRef = React.createRef();
-  }
-  componentDidMount() {
-    // Step 3: Use ref to focus input after component mounts
-    this.inputRef.current.focus();
-  }
-  render() {
-    return (
-      <div>
-        <h2>Class Component Ref Example</h2>
-        {/* Step 2: Attach ref to input */}
-        <input type="text" ref={this.inputRef} />
-      </div>
-    );
-  }
-}
-export default InputFocus;
 
