@@ -17,6 +17,14 @@ import FocusInput from './components/Ref/FocusInput';
 import FRInput from './components/Ref/FRInput';
 import FRParentInput from './components/Ref/FRParentInput';
 import Portal from './components/portal/Portal';
+// import ErrorBoundary from './components/Errorhandling/ErrorBoundary';
+
+import WithCounter from './components/HOC/WithCounter';
+import HoverCounter from './components/HOC/HoverCounter';
+import ClickCounter from './components/HOC/ClickCounter';
+import Dashboard from './components/component/ Dashboard';
+import UserList from './components/component/UserList';
+import AdminPanel from './components/component/AdminPanel';
 
 function App() {
   return (
@@ -52,7 +60,18 @@ function App() {
 
       {/* <FRInput/> */}
       {/* <FRParentInput/> */}
-      <Portal/>
+      {/* <Portal/> */}
+
+      {/* <ErrorBoundary></ErrorBoundary> */}
+      {/* 
+      <h1>HOC Example</h1>
+      <WithCounter/>
+      <HoverCounter/>
+      <ClickCounter/> */}
+
+      <Dashboard/>
+      <UserList/>
+      <AdminPanel/>
 
     </div>
   );

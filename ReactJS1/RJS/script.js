@@ -757,11 +757,29 @@ const EnhancedComponent=higherOrderComponent(orginalComponent)
 const IronMan=withSuit(TonyStark)
 */
 
-//  Render  props  ,
+// Render  props  ,
   // common functionality between rendering 
 /* 
 //  what  is render Prop-> The term "render pop" refers to a techinique for sharing code between React components using a prop whose value is a function.
 */
+
+
+/* HOC 
+-A Higher order componets(HOC) is a function that takes a component as input and return a new component. It is mainly used for code reuse and sharing logic between multiple components. Instead of dup;icating logic, you can wrap components with HOCs.
+const HigherOrderComponent = (WrappedComponent) => {
+  return class extends React.Component {
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+};
+Where do we apply HOCs in React projects?
+1.Authetication/ Protected Routes -> Use case: Wrap components/pages so only logged-in users can see them.
+2.Data Fetchinf -> withTheme injects theme props
+3.Theming -> withLogger tracks renders
+Logging Handling -> withRole restricts access
+*/
+
 
 // Context  -App Component 
 /* context provides a way to pass data through the component tree without having to pass props down manually at every level. 
