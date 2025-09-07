@@ -687,10 +687,11 @@ Why do we need it?
 */
 
 
+
 /* Portals -> By default, when you render a React component , it gets inserted into the DOM tree under its parent component.
 But sometimes you want a component to be rendered outside it's parent's DOM hierarchy -> while still keping its React state & Events
 
-Whyuse Portals? 
+Why use Portals? 
 1.Modals/Dialogs -> Shows popup outside root to avoid css overflow/clip issues. 
 2.Tooltips/ Dropdowns-> Render ablove all elements , not hidden by parent overflow:hidden.
 3.Overlays -> For loading spinners or notifications 
@@ -724,7 +725,7 @@ componentDidCatch(error,info){
 */
 /*
 static getDerivedStateFromError(error)
-componentDisCatch(error, info)
+componentDidCatch(error, info)
 */
 /* Error Boundary : A class component that implements either one or both of the lifecycle methods getDerivedStateFromError or componentDidCatch becomes an error boundary.
 
@@ -762,6 +763,87 @@ const IronMan=withSuit(TonyStark)
 /* 
 //  what  is render Prop-> The term "render pop" refers to a techinique for sharing code between React components using a prop whose value is a function.
 */
+/* What "render" means -> React turns your component state+props into UI
+  steps
+  - Render phase :React calls your components to get JSX.
+  - Reconciliation :Compares new JSX with previous(virtual DOM diff)
+  - Commit phase: updates the real DOM.
+  A re-render happens when state , props, or context change - or when a parent re-renders.
+
+  2]Common rendering patterns 
+  a] Conditional rendering
+     {isLogginIn?<Dashboard/>:<Login/>}     or
+     {error && <p role="alert">{error}</p>}
+  b] List rendering + keys
+    const users=[{id:1,name:'A'},{id:2,name:'B'}];
+    <ul>{users.map(u=><li key={u.id}>{u.name}</li>)}</ul>
+  c] Rendering nothing 
+    return condition?<Widget/>:null;
+  D] Component composition
+    <Card>
+      <Card.Header title="Profile"/>
+      <Card.Body><Profile/></Card.Body>
+    </Card>
+
+3.What triggers re-renders
+  -setState/useState
+  -Parent re-rendering(child may re-render)
+  -context value changes
+  -Changing a component's key
+4.Avoid unnecessary re-renders(when performance matters)
+  -React.memo(Component) - memoize pure functional components.
+  -useMemo-memoize callbacks passed to children.
+  -useCallback - memoize callbacks  passed to children
+  -keep state minimal and close to where it's used. 
+  Stable keys:avoid creating new objects/arrays inline if passed down deeply.
+  example-> const Child ({onSave}){});
+  function Parent() {
+    const onSave = React.useCallback(() => {...}, []);
+    return <Child onSave={onSave} />;
+  }
+
+  5]Rendering strategies(app-level)
+  -CSR (Client -side Rendering) : default CRV/Vita React apps. Data fetched in browser.
+  -SSR(Server-side Rendering):HTML generate on server(eg.Nect.js). Better SEO/ first paint
+  -SSG(static site Generation):prebuilt HTML at build time
+  -ISr(Increment Static Regeneration):re-generate pages in background.
+  -Streaming & Suspense: server sends chunks ; Susoense shows fallbacks until data is ready . 
+  -React Server Components:run components on server , send serialized UI tree (next.js)
+
+function App() {
+  const [q, setQ] = React.useState('');
+  const items = ["apple","banana","grape","mango"];
+
+  const filtered = React.useMemo(
+    () => items.filter(i => i.includes(q.toLowerCase())),
+    [q]
+  );
+
+  return (
+    <>
+      <input
+        value={q}
+        onChange={e => setQ(e.target.value)}
+        placeholder="Search fruit"
+      />
+      <ul>
+        {filtered.length ? (
+          filtered.map((i) => <li key={i}>{i}</li>)
+        ) : (
+          <li>No results</li>
+        )}
+      </ul>
+    </>
+  );
+}
+
+7.Quick chechlist
+  -use keys for lists(stable, unique)
+  -Perfect ternary or && for conditions
+  -Lift state only when you measure pref issues
+  -Don't mutable state directly
+  -Dont use index as key for dynamic lists
+*/
 
 
 /* HOC 
@@ -791,6 +873,13 @@ Logging Handling -> withRole restricts access
 ThemeContext , UserContext
 default value and context type
 */ 
+/*  In react,context provides a way to pass data through the component tree without having to pass props manually at every level. It solves the problem of prop drilling (passing props down multiple levels) 
+How Context works ->Context has 3 main steps:
+1.Creating Context-> using React.createContext()
+2.Provide Context->wrap components with Context.Provider
+3.Consume Context->use useContext (in functional components) or Context.Consumer(in class components)
+*/
+
 
 
 // React and HTTP -> web application --[Http Library]--sent-> Server --Fetch---[HTTP Library]--props&state-->webapplication
